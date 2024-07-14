@@ -9,12 +9,11 @@ const Header = () => {
   const [data, setData] = useState(null); // Initialize data state as null
 
   const fetchUserData = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (input.trim() !== '') {
       fetch(`https://api.github.com/users/${input}`)
         .then(response => response.json())
-        .then(data => {
-          console.log(data);
+        .then(data => {          
           setData(data);
         })
         .catch(error => {
@@ -23,24 +22,24 @@ const Header = () => {
         });
     }
     setInput(''); // Clear input after fetching
-  }
+  };
 
   return (
-    <div className='text-orange-500 '>
-      <div className='font-semibold'>
-        <SlightFlip className="text-4xl font-mono tracking-[-0.1em] text-white dark:text-white md:text-5xl md:leading-[5rem]" word="Github Profiler"/>
-      </div>      
-      <div className='flex items-center justify-center mt-3'>        
+    <div  className='text-orange-500 flex flex-col items-center mt-[-20px]'>
+      <div className='font-semibold mb-2'> {/* Adjusted margin */}
+        <SlightFlip className="text-4xl font-mono tracking-[-0.1em] text-white dark:text-white md:text-5xl md:leading-[5rem] py-9" word="Github Profiler"/> {/* Adjusted padding */}
+      </div>
+      <img src={GithubGif} alt="GitHub Animation" className="w-32 h-32 mb-2" /> {/* Adjusted size and margin */}
+      <form className='flex flex-col items-center'>
         <input 
           placeholder='Search Github Username' 
           value={input} 
           onChange={(e) => setInput(e.target.value)} 
-          className='bg-gray-800 p-2 rounded-lg  text-white'
-        />        
-        <ShimmerButton type='submit' onClick={fetchUserData} className='ml-2 py-2'>Search</ShimmerButton>        
-        <img src={GithubGif} alt="GitHub Animation" className="w-40 h-40 ml-2" />      
-      </div>
-
+          className='bg-gray-800 p-3 flex justify-center items-center rounded-lg text-white mb-2'
+        />
+        <ShimmerButton type='submit' onClick={fetchUserData} className='py-2'>Search</ShimmerButton>
+      </form>
+      
       {data && (
         <div className='flex justify-center mt-3'> {/* Center the card */}
           <NeonGradientCard className="max-w-sm items-center justify-center text-center">
